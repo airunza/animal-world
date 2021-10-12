@@ -23,7 +23,58 @@ const posterData = {
     ['qrcode', 50, 50, 120, 120],
     ['slogan', 242, 48, 460, 232],
     ['title', 50, 945, 308, 23]
-  ]
+  ],
+  wangtianshu: [
+    ['bg', 0, 0, 750, 1245],
+    ['desc', 50, 1001, 650, 151],
+    ['headset', 60, 181, 100, 25],
+    ['logo', 303, 1159,143, 36],
+    ['name', 50, 887, 130, 42],
+    ['qrcode', 50, 50, 120, 120],
+    ['slogan', 242, 48, 434, 233  ],
+    ['title', 50, 945, 308, 23]
+  ],
+    yanyang: [
+    ['bg', 0, 0, 750, 1245],
+    ['desc', 50, 1001, 650, 110],
+    ['headset', 60, 181, 100, 25],
+    ['logo', 303, 1159,143, 36],
+    ['name', 50, 887, 90, 42],
+    ['qrcode', 50, 50, 120, 120],
+    ['slogan', 242, 48, 451, 233],
+    ['title', 50, 945, 308, 23]
+  ],
+    yazhouxiang: [
+    ['bg', 0, 0, 750, 1245],
+    ['desc', 50, 1001, 650, 109],
+    ['headset', 60, 181, 100, 25],
+    ['logo', 303, 1159,143, 36],
+    ['name', 50, 887, 148, 48],
+    ['qrcode', 50, 50, 120, 120],
+    ['slogan', 242, 48, 457, 233],
+    ['title', 50, 945, 308, 23]
+  ],
+    yinshan: [
+    ['bg', 0, 0, 750, 1245],
+    ['desc', 50, 1001, 651, 111],
+    ['headset', 60, 181, 100, 25],
+    ['logo', 303, 1159,143, 36],
+    ['name', 50, 887, 102, 48],
+    ['qrcode', 50, 50, 120, 120],
+    ['slogan', 242, 48, 451, 233],
+    ['title', 50, 945, 308, 23]
+  ],
+    zhuhuan: [
+    ['bg', 0, 0, 750, 1245],
+    ['desc', 50, 1001, 650, 152],
+    ['headset', 60, 181, 100, 25],
+    ['logo', 303, 1159,143, 36],
+    ['name', 50, 887, 90, 42],
+    ['qrcode', 50, 50, 120, 120],
+    ['slogan', 242, 48, 466, 233],
+    ['title', 50, 945, 308, 23]
+  ],
+  
 }
 
 export default {
@@ -31,7 +82,7 @@ export default {
     return {
       nickname: window.nickname || '你',
 
-      resultThing: window.resultThing || 0,
+      resultThing: localStorage.getItem('resultThing') || 0,
       
       // poster图片的base64地址
       poster: ''
@@ -56,43 +107,54 @@ export default {
   },
 
   mounted () {
-    console.log('result mouted, nickname: ', this.nickname, 'resultThing: ', this.resultThing)
 
     const canvas  = document.querySelector('#poster-maker')
     const ctx = canvas.getContext('2d')
 
-    let imgNums = this.posterData.length
-    for (let i = 0; i < this.posterData.length; i++) {
-      const item = this.posterData[i]
-      const key = item[0]
+  let j=0;
+    const item0 = this.posterData[j]
+    const key0 = item0[0]
 
-      const img = document.createElement('img')
-      img.src = './poster/' + this.thingName + '/'  + key + '.png'
-      // console.log(img.src)
+    const img0 = document.createElement('img')
+    img0.src = './poster/' + this.thingName + '/'  + key0 + '.png'
+    img0.onload = () => {
+      ctx.drawImage(img0, item0[1], item0[2], item0[3], item0[4]);
 
-      img.onload = () => {
-        ctx.drawImage(img, item[1], item[2], item[3], item[4])
+      let imgNums = this.posterData.length-1;
+      for (let i = 1; i < this.posterData.length; i++) {
+        const item = this.posterData[i]
+        const key = item[0]
 
-        imgNums --
-        if (imgNums <= 0) {
-          // 图片加载完了
-          ctx.fillStyle = '#000000'
-          ctx.font = '28px 微软雅黑'
-          ctx.textBaseline = 'top'
-          ctx.fillText(this.nickname + '守护的是', 50 + 2, 837 + 2)
+        const img = document.createElement('img')
+        img.src = './poster/' + this.thingName + '/'  + key + '.png'
+        console.log(img.src)
 
-          ctx.fillStyle = '#ffffff'
-          ctx.font = '28px 微软雅黑'
-          ctx.textBaseline = 'top'
+        img.onload = () => {
+          console.log("onload",img.src);
+          ctx.drawImage(img, item[1], item[2], item[3], item[4])
 
-          ctx.fillText(this.nickname + '守护的是', 50, 837)
+          imgNums --
+          if (imgNums <= 0) {
+            // 图片加载完了
+            ctx.fillStyle = '#000000'
+            ctx.font = '28px 微软雅黑'
+            ctx.textBaseline = 'top'
+            ctx.fillText(this.nickname + '守护的是', 50 + 2, 837 + 2)
 
-          this.poster = canvas.toDataURL('image/jpeg', 0.9)
-          console.log(this.poster.length)
+            ctx.fillStyle = '#ffffff'
+            ctx.font = '28px 微软雅黑'
+            ctx.textBaseline = 'top'
 
-          document.querySelector('#poster').src = this.poster
+            ctx.fillText(this.nickname + '守护的是', 50, 837)
+
+            this.poster = canvas.toDataURL('image/jpeg', 0.9)
+            console.log(this.poster.length)
+
+            document.querySelector('#poster').src = this.poster
+          }
         }
       }
+
     }
   }
 }

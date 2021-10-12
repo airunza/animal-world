@@ -10,7 +10,6 @@
       <div class="boxing">
         <div v-for="(item, index) in boxing" :key="index" :style="{height: item.height + 'px', opacity: item.opacity + ''}"></div>
       </div>
-
       <div class="boxing-info">
         <img class="boxing-left" src="../assets/result/boxing-left.png" alt="" />
         <span>{{activeThing.boxingText}}</span>
@@ -46,7 +45,7 @@ export default {
   data () {
     return {
       // 随机的动物数字，0 - 5
-      resultThing: window.resultThing || 0,
+      resultThing: localStorage.getItem('resultThing') || 0,
 
       resultData: [{
         name: 'jiangtun',
@@ -141,6 +140,7 @@ export default {
     },
 
     choose () {
+      localStorage.setItem('resultThing',this.resultThing);
       this.nextPage()
     },
 
