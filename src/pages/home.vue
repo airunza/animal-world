@@ -53,7 +53,7 @@
 
       <div class="input-box" :style="{paddingBottom: inputBoxPaddingBottom + 'rem'}">
         <div class="input-area">
-          <input type="text" placeholder="请输入昵称" @change="setNickname" value="你" />
+          <input type="text" placeholder="请输入昵称" @change="setNickname" value="你" readonly="readonly" />
         </div>
         <!-- <img src="../assets/home/input_bg.png" alt="请输入昵称" /> -->
         
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 // import {double, treble} from '../lib.js'
 
 export default {
@@ -174,46 +174,50 @@ export default {
     },
 
     checkNickname () {
-      // 检查昵称是否合法
-      if (window.nickname === undefined || window.nickname === '') {
-        alert('请输出昵称')
-        return ''
-      }
+      window.nickname = '你'
 
-      axios.get('https://ai.china.com.cn/api/qn/token').then(res => {
-        // console.log(res.data)
-        if (!res.data || !res.data.bdtoken) {
-          alert('服务器错误，请刷新页面重试！')
-          return ''
-        }
-        const baiduToken = res.data.bdtoken
+      // // 检查昵称是否合法
+      // if (window.nickname === undefined || window.nickname === '') {
+      //   alert('请输出昵称')
+      //   return ''
+      // }
 
-        axios({
-          method: 'post',
-          url: 'https://aip.baidubce.com/rest/2.0/solution/v1/text_censor/v2/user_defined?access_token=' + baiduToken,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          data: JSON.stringify({
-            text: window.nickname
-          })
-        }).then(res => {
-          console.log(res)
+      // axios.get('https://ai.china.com.cn/api/qn/token').then(res => {
+      //   // console.log(res.data)
+      //   if (!res.data || !res.data.bdtoken) {
+      //     alert('服务器错误，请刷新页面重试！')
+      //     return ''
+      //   }
+      //   const baiduToken = res.data.bdtoken
 
-          // 不合法
-          if (Math.random() >= 0.5) {
-            document.querySelector('input').value = ''
+      //   axios({
+      //     method: 'post',
+      //     url: 'https://aip.baidubce.com/rest/2.0/solution/v1/text_censor/v2/user_defined?access_token=' + baiduToken,
+      //     headers: {
+      //       'Content-Type': 'application/x-www-form-urlencoded'
+      //     },
+      //     data: JSON.stringify({
+      //       text: window.nickname
+      //     })
+      //   }).then(res => {
+      //     console.log(res)
 
-            alert('不合法原因')
-          } else {
-            // this.nextPage()
-          }
-        }).catch(error => {
-          console.log(error)
-        })
-      }).catch(error => {
-        console.log(error)
-      })
+      //     // 不合法
+      //     if (Math.random() >= 0.5) {
+      //       document.querySelector('input').value = ''
+
+      //       alert('不合法原因')
+      //     } else {
+      //      // this.nextPage()
+      //     }
+      //   }).catch(error => {
+      //     console.log(error)
+      //   })
+      // }).catch(error => {
+      //   console.log(error)
+      // })
+
+      this.nextPage()
     },
 
     // 跳过输入昵称
