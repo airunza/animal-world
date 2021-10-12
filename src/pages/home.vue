@@ -220,7 +220,7 @@ export default {
       // })
 
       setTimeout(() => {
-        // this.nextPage()
+        this.nextPage()
       }, 600)
     },
 
@@ -260,7 +260,7 @@ export default {
 
     // 匀速自动播放
     setTimeout (() => {
-      // this.autoScroll()
+      this.autoScroll()
     }, 1500)
   }
 }
