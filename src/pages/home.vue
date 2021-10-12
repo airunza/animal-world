@@ -19,6 +19,8 @@
         <img class="text4" src="../assets/home/text_4.png" alt="它们可能与你有着不解之缘" />
         <br>
         <img class="text5" src="../assets/home/text_5.png" alt="快去寻找你守护的TA" />
+        <br>
+        <img class="text5" src="../assets/home/text_6.png" alt="快去寻找你守护的TA" />
       </div>
 
       <div class="arrow-box">
@@ -51,27 +53,25 @@
         <img class="title" src="../assets/home/title.png" alt="听它们的声音，保护动植物，聆听生物多样性之美" />
       </div>
 
-      <div class="input-box" :style="{paddingBottom: inputBoxPaddingBottom + 'rem'}">
+      <!-- <div class="input-box" :style="{paddingBottom: inputBoxPaddingBottom + 'rem'}">
         <div class="input-area">
           <input type="text" placeholder="请输入昵称" @change="setNickname" value="你" readonly="readonly" />
         </div>
-        <!-- <img src="../assets/home/input_bg.png" alt="请输入昵称" /> -->
-        
         <div class="input-tip">
           <img src="../assets/home/input_line.png" alt="横线" />
           <img  src="../assets/home/input_text.png" alt="获取一份来自大自然的声音" />
         </div>
+      </div> -->
+
+      <div class="check-btn" @click="checkNickname" @touchstart="mousedown" @touchend="mouseup">
+        <img class="check-btn-tip" src="../assets/home/tip.png" alt="" />
+        <img v-show="!btnTouching" src="../assets/home/check_btn.png" alt="确认按钮" />
+        <img v-show="btnTouching" src="../assets/home/check_btn_press.png" alt="确认按钮" />
       </div>
 
-      <div class="check-btn" @click="checkNickname">
-        <img src="../assets/home/check_btn.png" alt="确认按钮" />
-        <!-- <div @click="nextPage">跳转到下一页</div> -->
-      </div>
-
-      <div class="skipinput" @click="skipInput">
+      <!-- <div class="skipinput" @click="skipInput">
         <img class="skip-img" src="../assets/home/skip.png" alt="跳过输入" />
-        <!-- <div @click="nextPage">跳转到下一页</div> -->
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -91,7 +91,9 @@ export default {
       titleBoxPaddingBottom: 7.41,
       inputBoxPaddingBottom: 7.73,
 
-      showSkipBegin: true
+      showSkipBegin: true,
+
+      btnTouching: false,
     }
   },
 
@@ -217,13 +219,22 @@ export default {
       //   console.log(error)
       // })
 
-      this.nextPage()
+      setTimeout(() => {
+        // this.nextPage()
+      }, 600)
     },
 
     // 跳过输入昵称
     skipInput () {
       clearInterval(this.loop)
       this.nextPage()
+    },
+
+    mousedown () {
+      this.btnTouching = true
+    },
+    mouseup () {
+      this.btnTouching = false
     },
   },
 
@@ -249,7 +260,7 @@ export default {
 
     // 匀速自动播放
     setTimeout (() => {
-      this.autoScroll()
+      // this.autoScroll()
     }, 1500)
   }
 }
@@ -300,21 +311,16 @@ $themeColor: rgb(63, 106, 53);
     }
 
     .text-box {
-      padding-top: 5.6rem;
+      padding-top: 4.6rem;
 
       img {
-        padding-bottom: 4rem;
-      }
-      .text1, .text3, .text5 {
-        height: .9067rem;
-      }
-      .text2, .text4 {
-        height: .96rem;
+        padding-bottom: 2.67rem;
+        height: 1.33rem;
       }
     }
 
     .arrow-box {
-      padding: 1.33rem 0 6.93rem;
+      padding: 2.56rem 0 7.47rem;
       .arrow {
         width: 1.7067rem;
       }
@@ -381,10 +387,15 @@ $themeColor: rgb(63, 106, 53);
     }
 
     .check-btn {
-      padding-bottom: 1.81rem;
+      padding-top: 10rem;
 
       img {
         width: 12.48rem;
+      }
+
+      .check-btn-tip {
+        width: 13.06rem;
+        padding-bottom: .85rem;
       }
     }
 
