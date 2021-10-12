@@ -97,7 +97,8 @@ export default {
 
   methods: {
     nextPage (e) {
-      window.resultThing = Math.floor(Math.random() * 6)
+
+      localStorage.setItem('resultThing', Math.floor(Math.random() * 6))
       this.$emit('route', e, 'result')
     },
 
