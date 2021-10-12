@@ -29,7 +29,7 @@ export default {
   methods: {
     route (e, page) {
       window.history.replaceState({}, "", "#" + page)
-      
+      // console.log(e, page)
       this.page = page
     }
   },

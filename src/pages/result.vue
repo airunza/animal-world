@@ -6,7 +6,7 @@
       <div class="shadow"></div>
     </div>
 
-    <div class="boxing-box">
+    <div class="boxing-box" :style="{top: boxingBoxTop + 'rem'}">
       <div class="boxing">
         <div v-for="(item, index) in boxing" :key="index" :style="{height: item.height + 'px', opacity: item.opacity + ''}"></div>
       </div>
@@ -18,16 +18,17 @@
       </div>
     </div>
 
-    <div v-show="!playState" class="play-btn" @click="playerHandle">
+    <div v-show="!playState" class="play-btn" @click="playerHandle" :style="{bottom: playBtnBottom + 'rem'}">
       <div class="play-btn1"></div>
       <div class="play-btn2"></div>
       <div class="play-btn3"></div>
     </div>
-    <div v-show="playState" class="play-btn" @click="playerHandle">
+
+    <div v-show="playState" class="play-btn" @click="playerHandle" :style="{bottom: playBtnBottom + 'rem'}">
       <img v-show="playState" src="../assets/result/pause.png" alt="暂停按钮" />
     </div>
 
-    <div class="btn-box">
+    <div class="btn-box" :style="{bottom: btnBoxBottom + 'rem'}">
       <div class="choose" @click="choose">
         <img src="../assets/result/choose.png" alt="守护它" />
       </div>
@@ -69,12 +70,15 @@ export default {
         boxingText: '听，这是朱鹮在鸣叫',
       }],
 
+      boxingBoxTop: 22.3,
       boxing: [],
       boxingLoop: null,
 
       audioPlayer: null,
       playState: false,
       
+      playBtnBottom: 8.48,
+      btnBoxBottom: 3.9,
     }
   },
 
@@ -159,6 +163,15 @@ export default {
     this.setBoxing()
 
     this.initPlayer()
+
+    const pageHeight = document.querySelector('.page').offsetHeight
+    const pageWidth = document.querySelector('.page').offsetWidth
+    const remValue = document.querySelector('.page').offsetWidth / 20
+    const balance = (30 + 750 - pageHeight / (pageWidth / 375)) / remValue
+    
+    this.boxingBoxTop = this.boxingBoxTop - balance * 0.5
+    this.playBtnBottom = this.playBtnBottom - balance * 0.4
+    this.btnBoxBottom = this.btnBoxBottom - balance * 0.2
   }
 }
 </script>
@@ -300,7 +313,8 @@ $themeColor: rgb(63, 106, 53);
   .play-btn {
     position: absolute;
     left: 9.2rem;
-    bottom: calc(10% + 2rem);
+    // bottom: 2rem;
+    bottom: 8.48rem;
 
     margin: 2.13rem auto 2.19rem;
     
@@ -364,8 +378,8 @@ $themeColor: rgb(63, 106, 53);
 
     position: absolute;
     left: .75rem;
-    bottom: 3.73rem;
-    bottom: 10%;
+    // bottom: 3.73rem;
+    bottom: 3.9rem;
 
     width: 18.5rem;
     font-size: 0;

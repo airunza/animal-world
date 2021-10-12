@@ -232,8 +232,9 @@ export default {
 
     // 首页的部分元素根据页面高度自动适配
     const pageHeight = document.querySelector('.home').offsetHeight
+    const pageWidth = document.querySelector('.home').offsetWidth
     const remValue = document.querySelector('.home').offsetWidth / 20
-    const balance = (30 + 750 - pageHeight) / remValue
+    const balance = (30 + 750 - pageHeight / (pageWidth / 375)) / remValue
     // console.log(balance)
     
     if (balance >= 0 ) {
